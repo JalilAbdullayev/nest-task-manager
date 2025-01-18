@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import TasksRepository from './tasks.repository';
 import Task from './task.entity';
 import CreateTaskDto from './dto/create-task.dto';
+import { TaskStatus } from './task-status.enum';
 
 @Injectable()
 export default class TasksService {
@@ -17,5 +18,9 @@ export default class TasksService {
 
   deleteTask(id: string): Promise<void> {
     return this.tasksRepository.deleteTask(id);
+  }
+
+  updateTaskStatus(id: string, status: TaskStatus): Promise<Task> {
+    return this.tasksRepository.updateTaskStatus(id, status);
   }
 }
