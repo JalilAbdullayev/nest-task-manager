@@ -12,7 +12,9 @@ export default class TasksRepository extends Repository<Task> {
 
   async getTaskById(id: string): Promise<Task> {
     const found: Task = await this.findOne({ where: { id } });
-    if (!found) throw new NotFoundException(`Task with ID "${id}" not found`);
+    if (!found) {
+      throw new NotFoundException(`Task with ID "${id}" not found.`);
+    }
     return found;
   }
 
@@ -25,5 +27,12 @@ export default class TasksRepository extends Repository<Task> {
     });
     await this.save(task);
     return task;
+  }
+
+  async deleteTask(id: string): Promise<void> {
+    const result = await this.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Task with ID "${id}" not found.`);
+    }
   }
 }

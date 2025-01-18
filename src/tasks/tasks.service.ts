@@ -14,4 +14,8 @@ export default class TasksService {
   createTask(createTaskDto: CreateTaskDto): Promise<Task> {
     return this.tasksRepository.createTask(createTaskDto);
   }
+
+  deleteTask(id: string): Promise<void> {
+    return this.tasksRepository.deleteTask(id);
+  }
 }
