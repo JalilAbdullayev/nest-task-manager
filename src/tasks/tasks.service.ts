@@ -5,7 +5,7 @@ import CreateTaskDto from './dto/create-task.dto';
 import GetTasksFilterDto from './dto/get-tasks-filter.dto';
 
 @Injectable()
-export class TasksService {
+export default class TasksService {
   private tasks: Task[] = [];
 
   getAllTasks(): Task[] {

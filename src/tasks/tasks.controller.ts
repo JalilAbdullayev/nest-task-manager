@@ -8,14 +8,14 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { TasksService } from './tasks.service';
-import Task, { TaskStatus } from './task.model';
+import TasksService from './tasks.service';
+import Task from './task.model';
 import CreateTaskDto from './dto/create-task.dto';
 import GetTasksFilterDto from './dto/get-tasks-filter.dto';
 import UpdateTaskStatusDto from './dto/update-task-status.dto';
 
 @Controller('tasks')
-export class TasksController {
+export default class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
