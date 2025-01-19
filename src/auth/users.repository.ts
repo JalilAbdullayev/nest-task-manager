@@ -6,6 +6,7 @@ import {
 import { DataSource, Repository } from 'typeorm';
 import { User } from './user.entity';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { genSalt, hash } from 'bcrypt';
 
 @Injectable()
 export class UsersRepository extends Repository<User> {
@@ -15,7 +16,10 @@ export class UsersRepository extends Repository<User> {
 
   async createUser(authCredentialsDto: AuthCredentialsDto): Promise<void> {
     const { username, password } = authCredentialsDto;
-    const user: User = this.create({ username, password });
+    // hash
+    const salt: string = await genSalt();
+    const hashedPassword: string = await hash(password, salt);
+    const user: User = this.create({ username, password: hashedPassword });
     try {
       await this.save(user);
     } catch (error) {
